@@ -27,8 +27,7 @@ app.use(express.json());
 //Logging
 app.use(logger("dev"));
 
-//Connect To Database
-connectDB();
+
 
 //Use forms for put / delete
 app.use(methodOverride("_method"));
@@ -55,8 +54,9 @@ app.use(flash());
 app.use('/', mainRoutes)
 app.use('/members', memberRouter)
 
-app.listen(process.env.PORT, () => {
+//Connect To Database
+connectDB().then(()=>{
+  app.listen(process.env.PORT, () => {
     console.log(`listening on port ${process.env.PORT}`)
+  })  
 })
-
-
